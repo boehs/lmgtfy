@@ -80,7 +80,9 @@ $(function () {
 											},
 											1000,
 											function () {
-												$tips.html("<strong>How hard was that?</strong>");
+												$tips.html(
+													"<strong>Don't torture people with your questions</strong>"
+												);
 												$arrow.addClass("active");
 
 												stepTimeout = setTimeout(function () {
