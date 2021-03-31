@@ -51,7 +51,7 @@ $(function () {
 					},
 					2000,
 					function () {
-						$tips.html("Write your question");
+						$tips.html("2. Write your question");
 						$arrow.addClass("active");
 
 						stepTimeout = setTimeout(function () {
