@@ -1,12 +1,66 @@
-if (!window.location.origin) {
-	window.location.origin =
-		window.location.protocol +
-		"//" +
-		window.location.hostname +
-		(window.location.port ? ":" + window.location.port : "");
+// social icons display on click
+
+// navbar collapse
+const navbarCollapse = document.querySelector(".navbar-collapse");
+const navShowBtn = document.getElementById("navbar-toggler");
+const navCloseBtn = document.getElementById("nav-close-btn");
+const modal = document.getElementById("modal");
+
+navShowBtn.addEventListener("click", () => {
+	navbarCollapse.classList.add("show-navbar-collapse");
+	modal.classList.add("fullscreenModal");
+});
+
+navCloseBtn.addEventListener("click", () => {
+	navbarCollapse.classList.remove("show-navbar-collapse");
+	modal.classList.remove("fullscreenModal");
+});
+
+window.addEventListener("click", (e) => {
+	if (e.target === modal) {
+		navbarCollapse.classList.remove("show-navbar-collapse");
+		modal.classList.remove("fullscreenModal");
+	}
+});
+
+// faq collapsible
+const faqHeadIcons = document.querySelectorAll(".faq-head span");
+const faqHeadTitles = document.querySelectorAll(".faq-head h3");
+const faqBodyContents = document.querySelectorAll(".faq-body");
+
+// while clicking title
+faqHeadTitles.forEach((title) => {
+	title.addEventListener("click", () => {
+		faqBodyHide();
+		faqIconReset();
+		title.parentElement.nextElementSibling.classList.add("show-faq-body");
+		title.previousElementSibling.innerHTML =
+			'<img src = "assets/icons/up.svg">';
+	});
+});
+
+// while clicking icon
+faqHeadIcons.forEach((icon) => {
+	icon.addEventListener("click", () => {
+		faqBodyHide();
+		faqIconReset();
+		icon.parentElement.nextElementSibling.classList.add("show-faq-body");
+		icon.innerHTML = '<img src = "assets/icons/up.svg">';
+	});
+});
+
+function faqBodyHide() {
+	faqBodyContents.forEach((body) => {
+		body.classList.remove("show-faq-body");
+	});
 }
 
-/* 扩展一个getUrlParam的方法 */
+function faqIconReset() {
+	faqHeadIcons.forEach((icon) => {
+		icon.innerHTML = '<img src = "assets/icons/down.svg">';
+	});
+}
+
 $.getUrlParam = function (name) {
 	var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
 	var r = window.location.search.substr(1).match(reg);
@@ -15,7 +69,7 @@ $.getUrlParam = function (name) {
 };
 
 $(function () {
-	var $kw = $("#kw"),
+	var $kw = $("#search-box"),
 		$searchSubmit = $("#search"),
 		$urlOutput = $("#url-output"),
 		$tips = $("#tips"),
@@ -77,8 +131,11 @@ $(function () {
 													$searchSubmit.height() / 2 +
 													"px",
 											},
-											1000,
+											2000,
+
 											function () {
+												var button = document.getElementById("search");
+												button.classList.add("green");
 												$tips.html(
 													"<strong>Don't torture people with your questions</strong>"
 												);
@@ -87,11 +144,11 @@ $(function () {
 												stepTimeout = setTimeout(function () {
 													if ($(".search-text").attr("data-site") == "google") {
 														window.location =
-															"https://www.google.com/search?q=" +
+															"https://www.duckduckgo.com/" +
 															encodeURIComponent(query);
 													} else {
 														window.location =
-															"https://www.google.com/search?q=" +
+															"https://www.duckduckgo.com/" +
 															encodeURIComponent(query);
 													}
 												}, 1000);
@@ -105,17 +162,6 @@ $(function () {
 		}, 1000);
 	}
 
-	$stop.click(function () {
-		clearTimeout(stepTimeout);
-		clearInterval(typeInterval);
-		$stop.hide();
-		$arrow.stop().hide();
-		$kw.val(query);
-		query = false;
-		$tips.html("Enter a question and press Google Search");
-	});
-
-	/* 提交 */
 	$("#search").on("click", function () {
 		if (!!query) return false;
 
@@ -139,8 +185,6 @@ $(function () {
 		return false;
 	});
 
-	/* 复制结果 */
-
 	var clipboard = new ClipboardJS("[data-clipboard-target]");
 	clipboard.on("success", function (e) {
 		$tips.html('<span style="color: #4caf50">Copied successfully!</span>');
@@ -150,68 +194,4 @@ $(function () {
 			'<span style="color: red">Copy failed, please copy manually</span>'
 		);
 	});
-
-	/* 预览 */
-
-	$("#preview").click(function () {
-		var link = $urlOutput.val();
-		if (!!link) {
-			window.open(link);
-		}
-	});
-
-	/* 手气不错 */
-
-	$("#search2").on("click", function () {
-		window.location =
-			"https://www.google.com/search?q=" +
-			encodeURIComponent($("#kw").val()) +
-			"&btnI=I'm+Feeling+Lucky";
-	});
 });
-
-function showAbout() {
-	var windowWidth = $(window).width();
-	var windowHeight = $(window).height();
-	var popupHeight = $("#msgbox").height();
-	var popupWidth = $("#msgbox").width();
-	$("#mask")
-		.width(windowWidth)
-		.height(windowHeight)
-		.click(function () {
-			hideAbout();
-		})
-		.fadeIn(200);
-	$("#msgbox")
-		.css({
-			position: "absolute",
-			left: windowWidth / 2 - popupWidth / 2,
-			top: windowHeight / 2 - popupHeight / 2,
-		})
-		.fadeIn(200);
-}
-function hideAbout() {
-	$("#mask").fadeOut(200);
-	$("#msgbox").fadeOut(200);
-}
-
-function gtest() {
-	var img = new Image();
-	var timeout = setTimeout(function () {
-		img.onerror = img.onload = null;
-		$(".search-text").attr("data-site", "google2");
-	}, 3000);
-	img.onerror = function () {
-		clearTimeout(timeout);
-		$(".search-text").attr("data-site", "google2");
-	};
-	img.onload = function () {
-		clearTimeout(timeout);
-		$(".search-text").attr("data-site", "google");
-	};
-	img.src = "https://www.google.com/favicon.ico?" + +new Date();
-}
-window.onload = function () {
-	gtest();
-	window.setInterval("gtest()", 10000);
-};

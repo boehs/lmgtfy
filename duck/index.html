@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>DuckDuckGo &mdash; Privacy, simplified</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- icon -->
+  <link rel="icon" href="assets/images/favicon.png" type="image/png">
+  <link rel="stylesheet" href="main.css">
+
+  <script src="../js/jquery.min.js"></script>
+  <script src="../js/base64.min.js"></script>
+  <script src="../js/clipboard.min.js"></script>
+</head>
+
+<body>
+
+
+  <!-- navbar -->
+  <nav class="navbar">
+    <div class="navbar-wrapper">
+      <div class="nav-btns">
+        <div class="social-icons">
+          <span>
+            <a href="https://www.boehs.ml">By Evan</a>
+          </span>
+        </div>
+        <span id="navbar-toggler" class="nav-btns">Options</span>
+      </div>
+
+      <div class="navbar-collapse">
+        <button type="button" id="nav-close-btn">
+          <img src="assets/icons/close.svg">
+        </button>
+
+        <div class="links-container">
+          <div class="nav-links">
+            <h4>LM?FY</h4>
+            <ul>
+              <li><a href="../">Google</a></li>
+              <li><a href="../Bing">Bing</a></li>
+            </ul>
+          </div>
+
+          <div class="nav-links">
+            <h4>Legal</h4>
+            DuckDuckGo and the DuckDuckGo logo are owned by DuckDuckGo INC.
+          </div>
+        </div>
+      </div>
+      <!-- end of navbar -->
+
+      <!-- main -->
+      <main>
+        <div class="main-wrapper">
+          <!-- content top -->
+          <section class="content-top">
+            <div class="site-img">
+              <img src="assets/images/duckduckgo-png.png" alt="">
+            </div>
+            <form class="search-form">
+              <input type="text" class="search-box" id="search-box"
+                placeholder="Enter a term and hit search. Send the link to people in need of help.">
+              <button type="submit" class="search-btn" id="search">
+                <img src="assets/icons/loupe.svg">
+              </button>
+            </form>
+            <h3 id="tips">Hello!</h3>
+            <div id="output">
+              <textarea id="url-output" rows="3" readonly></textarea>
+              <div class="tool-btns">
+                <button data-clipboard-target="#url-output">Copy</button>
+                <button id="preview">Preview</button>
+              </div>
+            </div>
+
+      </main>
+      <!-- end of main -->
+
+
+      <!-- fullscreen modal -->
+      <div id="modal"></div>
+      <!-- end of fullscreen modal -->
+
+
+
+      <script src="script.js"></script>
+      <div id="arrow"></div>
+</body>
+
+</html>
