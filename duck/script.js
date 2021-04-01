@@ -194,4 +194,11 @@ $(function () {
 			'<span style="color: red">Copy failed, please copy manually</span>'
 		);
 	});
+	
+	$("#preview").click(function () {
+		var link = $urlOutput.val();
+		if (!!link) {
+			window.open(link);
+		}
+	});
 });
