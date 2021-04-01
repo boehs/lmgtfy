@@ -6,7 +6,6 @@ if (!window.location.origin) {
 		(window.location.port ? ":" + window.location.port : "");
 }
 
-/* 扩展一个getUrlParam的方法 */
 $.getUrlParam = function (name) {
 	var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
 	var r = window.location.search.substr(1).match(reg);
@@ -115,7 +114,6 @@ $(function () {
 		$tips.html("Enter a question and press Google Search");
 	});
 
-	/* 提交 */
 	$("#search").on("click", function () {
 		if (!!query) return false;
 
@@ -139,8 +137,6 @@ $(function () {
 		return false;
 	});
 
-	/* 复制结果 */
-
 	var clipboard = new ClipboardJS("[data-clipboard-target]");
 	clipboard.on("success", function (e) {
 		$tips.html('<span style="color: #4caf50">Copied successfully!</span>');
@@ -151,16 +147,12 @@ $(function () {
 		);
 	});
 
-	/* 预览 */
-
 	$("#preview").click(function () {
 		var link = $urlOutput.val();
 		if (!!link) {
 			window.open(link);
 		}
 	});
-
-	/* 手气不错 */
 
 	$("#search2").on("click", function () {
 		window.location =
